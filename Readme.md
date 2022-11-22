@@ -100,8 +100,8 @@ ExecutorService was released as part of Java 5 in 2004. It's basically as **`Asy
 * **`Fork Join Task:`** The Fork Join Task is a special type that is accepted by the Fork Join Queue. It has the ability to split into subtask and the results are joined after execution. 
   * Fork Join Task represents a part of the data and the computation that needs to be performed on that part of the data. For example- If we are performing upper case transformation on the elements of a string list, a Fork Join Task may represent an element of the list along with the uppercase operation.
   * There are mainly 2 types of Fork Join Tasks that's accepted by the Fork Join Pool.
-    * `Recursive Task:` Recursive Task is used when we need to return a value.
-    * `Recursive Action:` Recursive Action is used when we don't need the task to return a value.
+    * `RecursiveTask:` Recursive Task is used when we need to return a value.
+    * `RecursiveAction:` Recursive Action is used when we don't need the task to return a value.
 * **Components Fork Join Pool:** The Fork Join Pool involves the following elements.
   * `Shared Work Queue:` When client submits a tasks it's placed in the Shared Work Queue.
   * `Worker Threads:` The Worker Threads polls the Shared Work Queue
@@ -154,6 +154,24 @@ ExecutorService was released as part of Java 5 in 2004. It's basically as **`Asy
 
         }
 
+## **Parallel Streams**
+
+[Oracle Blog: Considerations for using Parallel Streams](https://blogs.oracle.com/javamagazine/post/java-parallel-streams-performance-benchmark#:~:text=A%20sequential%20stream%20is%20executed,CPU%20cores%20in%20a%20computer.)
+
+A parallel stream is split into multiple substreams that may be processed in parallel by multiple instances of the stream pipeline being executed by multiple threads, and their intermediate results are combined to create the final result.
+
+A parallel stream can be created only directly on a collection by invoking the `Collection.parallelStream() `method.
+
+### **Stream Execution Modes:** 
+The sequential or parallel mode of an existing stream can be modified by calling the `BaseStream.sequential()` and `BaseStream.parallel()` intermediate operations, respectively. So this methods may be used to get quick baselines of our stream pipeline and then later use the `Collection.parallelStream()` method to create the parallel stream directly from the collections.
+
+.parallel() takes precedence over .sequential(). So if both execution modes are mentioned in the pipeline then the stream is executed in parallel.
+
+A stream is executed sequentially or in parallel depending on the execution mode of the stream on which the terminal operation is initiated.
+
+*Parallel streams utilize the `fork/join framework` for executing parallel tasks.*
+
+* With ParallelStreams the total number of tasks that can run in parallel is equal to the number of cores in the CPU
 
 
 
